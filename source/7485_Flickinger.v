@@ -27,13 +27,13 @@ module _7485(
     assign a3NandB3 = !(A[3] && B[3]); 
     
     assign a0AndNand0 = A[0] && a0NandB0;
-    assign a1AndNand0 = A[1] && a1NandB1;
-    assign a2AndNand0 = A[2] && a2NandB2;
-    assign a3AndNand0 = A[3] && a3NandB3;
+    assign a1AndNand1 = A[1] && a1NandB1;
+    assign a2AndNand2 = A[2] && a2NandB2;
+    assign a3AndNand3 = A[3] && a3NandB3;
     assign b0AndNand0 = B[0] && a0NandB0;
-    assign b1AndNand0 = B[1] && a1NandB1;
-    assign b2AndNand0 = B[2] && a2NandB2;
-    assign b3AndNand0 = B[3] && a3NandB3;
+    assign b1AndNand1 = B[1] && a1NandB1;
+    assign b2AndNand2 = B[2] && a2NandB2;
+    assign b3AndNand3 = B[3] && a3NandB3;
     
     assign Nor0 = !(a0AndNand0 || b0AndNand0);
     assign Nor1 = !(a1AndNand1 || b1AndNand1);
