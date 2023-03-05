@@ -6,7 +6,7 @@ module t_ALU_addsub_pt1();
     wire[7:0] Sum;
     wire ALB, AGB, AEB, C_8;
    
-    _ALU_addsub myaddsub(A[7:0], B[7:0], Add_sub, Sum[7:0], C_8, ALB, AGB, AEB);
+    _ALU_addsub myaddsub(A[7:0], B[7:0], Add_Sub, Sum[7:0], C_8, ALB, AGB, AEB);
     
     initial
         begin
