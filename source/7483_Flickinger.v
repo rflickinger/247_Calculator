@@ -4,6 +4,7 @@ module _Full_Adder(
     input A,B,Cin,
     output Co,S   
     );
+    wire AexorBwire, AandBwire, Cinand_AexorBwire;
     
     xor AexorB(AexorBwire, A, B);
     and AandB(AandBwire, A, B);
@@ -56,9 +57,9 @@ module _8bitbinaddsub(
 wire[7:0] Bout;
 wire C_4;
 
-_8bitCompl(B, C_0, Bout);
-_7483(A[3:0], Bout[3:0], C_0, S[3:0], C_4);
-_7483(A[7:4], Bout[7:4], C_4, S[7:4], C_8);
+_8bitCompl comp(B, C_0, Bout);
+_7483 least_adder(A[3:0], Bout[3:0], C_0, S[3:0], C_4);
+_7483 most_adder (A[7:4], Bout[7:4], C_4, S[7:4], C_8);
 
 
 endmodule
