@@ -9,11 +9,12 @@ module _Correcting(
     wire C8DP, SumCP, correctedC_8, correctedSumWire; 
     
     //sign from the original corrector
-    assign almost_sign = Add_Sub && ALB;
+    wire sign;
+    assign sign = Add_Sub && ALB;
     
     //pass or zero out C_8. 1 means zero out C_8
     assign C8DP = Add_Sub;
-    assign correctedC_8 = C8DP && C_8;
+    assign correctedC_8 = ~C8DP && C_8;
     assign magnitude[8] = correctedC_8;
     
     // pass or complement sum
@@ -22,5 +23,6 @@ module _Correcting(
     wire discardWire;
     assign zeroHolder[7:0]  = 00000000;
     _8bitbinaddsub corrector(zeroHolder, Sum, SumCP, magnitude[7:0], discardWire);
-
+ 
+    assign almost_sign = sign ^ eop_sign;
 endmodule

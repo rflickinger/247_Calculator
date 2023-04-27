@@ -5,10 +5,11 @@ module _ALU_addsub(
     input Add_Sub, sign_A, sign_B,
     output[8:0] magnitude,
     //output[7:0] Sum,
-    output C_8, ALB, AGB, AEB, Final_sign
+    output Final_sign
+    //output ALB, AGB, AEB
     );
     wire[7:0] precorrectSum;
-    wire[8:0] magOutWire;
+    wire ALB, AGB, AEB;
     
     wire eop, eop_sign;
     _EssOp_ID essential_op(Add_Sub, sign_A, sign_B, eop, eop_sign);    
@@ -22,11 +23,9 @@ module _ALU_addsub(
     
     //corrects the output to proper syntax
     wire almost_sign;
-    //_Correcting corrector(Add_Sub, ALB, C_8, eop_sign, precorrectSum[7:0], almost_sign, magOutWire);
-    //_Correcting corrector(Add_Sub, ALB, C_8, eop_sign, precorrectSum[7:0], Final_sign, magOutWire);
-    _Correcting corrector(Add_Sub, ALB, C_8, eop_sign, precorrectSum[7:0], Final_sign, magnitude);
+    _Correcting corrector(Add_Sub, ALB, C_8, eop_sign, precorrectSum[7:0], almost_sign, magnitude);
     //assign Final_sign = almost_sign ^ eop_sign;
-    //assign C_8 = magOutWire[8];
-    //assign Sum = magOutWire[7:0];
+    //different assign statement suggested by someone else after I struggled with it for a while
+    assign Final_sign = almost_sign & ~(eop & eop_sign & AEB);
     
 endmodule
