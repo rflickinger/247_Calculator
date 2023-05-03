@@ -8,7 +8,7 @@ module _2to1mux(
     output Y
 );
     
-    assign Y  = (A)?C[1]:C[2];
+    assign Y  = (A)?C[1]:C[0];
     
 endmodule
 

@@ -7,12 +7,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module display_data_output_circuit_flickinger(
+module display_data_output_circuit(
     input[3:0] ab_msd, ab_lsd,
     input[11:0] alu_out,
     input[1:0] four_to_one_sel,
     input alu_sign, input_sign, two_to_one_sel, 
-    output a_out, b_out, c_out, d_out, e_out, f_out ,g_out,
+    output a_out, b_out, c_out, d_out, e_out, f_out, g_out,
     output[7:0] AN
     );
     wire[11:0] input_full_BCD;
@@ -84,44 +84,44 @@ module display_data_output_circuit_flickinger(
     wire[6:0] msb_seg, sb_seg, lsb_seg;
     
     _7448 _7seg_msb(msb_a, msb_b, msb_c, msb_d, msb_seg[6], msb_seg[5], msb_seg[4], msb_seg[3], msb_seg[2], msb_seg[1], msb_seg[0]);
-    _7448 _7seg_sb(sb_a, sb_b, sb_c, sb_d, sb_seg[6], sb_seg[5], sb_seg[4], sb_seg[3], sb_seg[2], sb_seg[1], sb_seg[0]);
+    _7448 _7seg_sb (sb_a,  sb_b,  sb_c,  sb_d,  sb_seg[6],  sb_seg[5],  sb_seg[4],  sb_seg[3],  sb_seg[2],  sb_seg[1],  sb_seg[0]);
     _7448 _7seg_lsb(lsb_a, lsb_b, lsb_c, lsb_d, lsb_seg[6], lsb_seg[5], lsb_seg[4], lsb_seg[3], lsb_seg[2], lsb_seg[1], lsb_seg[0]);
     
     //wires to put each of the segments into a vector
-    //0 is sign, 1 is lsb, 2 is sb, 3 is msb
+    //0 is sign, 1 is msb, 2 is sb, 3 is lsb
     //h is a dump vector for the last one
     wire[3:0] a_vect, b_vect, c_vect, d_vect, e_vect, f_vect, g_vect, h_vect;
-    assign a_vect[0] = 0;
+    assign a_vect[0] = 1;
     assign a_vect[1] = msb_seg[6];
     assign a_vect[2] = sb_seg[6];
     assign a_vect[3] = lsb_seg[6];
     
-    assign b_vect[0] = 0;
+    assign b_vect[0] = 1;
     assign b_vect[1] = msb_seg[5];
     assign b_vect[2] = sb_seg[5];
     assign b_vect[3] = lsb_seg[5];
     
-    assign c_vect[0] = 0;
+    assign c_vect[0] = 1;
     assign c_vect[1] = msb_seg[4];
     assign c_vect[2] = sb_seg[4];
     assign c_vect[3] = lsb_seg[4];
     
-    assign d_vect[0] = 0;
+    assign d_vect[0] = 1;
     assign d_vect[1] = msb_seg[3];
     assign d_vect[2] = sb_seg[3];
     assign d_vect[3] = lsb_seg[3];
     
-    assign e_vect[0] = 0;
+    assign e_vect[0] = 1;
     assign e_vect[1] = msb_seg[2];
     assign e_vect[2] = sb_seg[2];
     assign e_vect[3] = lsb_seg[2];
     
-    assign f_vect[0] = 0;
+    assign f_vect[0] = 1;
     assign f_vect[1] = msb_seg[1];
     assign f_vect[2] = sb_seg[1];
     assign f_vect[3] = lsb_seg[1];
     
-    assign g_vect[0] = ~out_sign;
+    assign g_vect[0] = ~out_sign; //THIS IS SET TO NOT ON PURPOSE. RESULTS WILL BE REVERSED ON SIM
     assign g_vect[1] = msb_seg[0];
     assign g_vect[2] = sb_seg[0];
     assign g_vect[3] = lsb_seg[0];
